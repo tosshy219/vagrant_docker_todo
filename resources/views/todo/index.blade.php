@@ -14,7 +14,7 @@
       {{-- divの中で左右に配置 --}}
       <div class="d-flex justify-content-between">
         <span style="line-height: 40px;">{{$todo->text}}</span>
-        <form method="POST" action="">
+        <form method="POST" action="{{route('destroy',['id'=>$todo->id])}}">
           @csrf
           <button class="btn btn-light btn-sm" type="submit">消去</button>
         </form>
