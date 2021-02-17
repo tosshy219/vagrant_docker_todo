@@ -30,6 +30,7 @@ class TodoController extends Controller
     }
 
     // indexの画面から送られてくるidを受け取る
+    // 特定の何かをいじる時は個別でidが送られてくる
     public function edit($id)
     {
         $todo=Todo::find($id);
@@ -38,6 +39,7 @@ class TodoController extends Controller
         ]);
     }
     
+    //特定の一つを更新するため，idを引数に受け取っている
     public function update(Request $request,$id)
     {
         $todo=Todo::find($id);
@@ -46,4 +48,14 @@ class TodoController extends Controller
         return redirect('/');
     }
     
+    //特定の一つを消去するため，idを引数に受け取っている
+    public function destroy($id)
+    {
+        $todo = Todo::find($id);
+
+        $todo->delete();
+
+        return redirect('/');
+
+    }
 }
