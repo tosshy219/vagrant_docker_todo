@@ -15,4 +15,18 @@ class TodoController extends Controller
             'todos'=>$todos,
         ]);
     }
+
+    public function create()
+    {
+        return view('todo.create');
+    }
+
+    // Requestは渡ってきたデータを使う．Todo $todoはTodoモデルをインスタンス化してる(DI)
+    public function store(Request $request,Todo $todo)
+    {
+        $todo->text=$request->input('text');
+        $todo->save();
+        return redirect('/');
+    }
+
 }
