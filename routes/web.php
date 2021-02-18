@@ -22,3 +22,5 @@ Route::post('/store',[TodoController::class,'store'])->name('store');
 Route::get('/edit/{id}',[TodoController::class,'edit'])->name('edit');
 Route::put('/update/{id}',[TodoController::class,'update'])->name('update');
 Route::post('/destroy/{id}',[TodoController::class,'destroy'])->name('destroy');
+
+Route::post('CSV',[TodoController::class,'postCSV'])->name('CSV');

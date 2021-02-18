@@ -58,4 +58,39 @@ class TodoController extends Controller
         return redirect('/');
 
     }
+
+    //CSV出力の機能
+    public function postCSV()
+    {
+        $todos_json=Todo::all();
+        //fputcsv()はjsonの形式だと使えないため，変換
+        $todos_not_json=json_decode($todos_json,true);
+        // カラムの作成(のちに使うfputcsvは第二引数のところに”配列として”データを入れないといけないって)
+        $head = ['id','TODOリスト','作成日時','更新日時'];
+
+        // 書き込み用ファイルを開く
+        $f = fopen('test.csv', 'w');
+        if ($f) {
+            // カラムの書き込み　$headの文字をUTF-8からSJISに変更
+            mb_convert_variables('SJIS', 'UTF-8', $head);
+            fputcsv($f, $head);
+            // データの書き込み(csvファイルはSJISじゃないと文字化けするらしい)
+            foreach ($todos_not_json as $todo) {
+                //この$todo一つ一つがすでに配列
+                mb_convert_variables('SJIS', 'UTF-8', $todo);
+                fputcsv($f, $todo);
+            }
+        }
+        // ファイルを閉じる
+        fclose($f);
+
+        // HTTPヘッダ
+        header("Content-Type: application/octet-stream");
+        //   送るデータのサイズが記してある．↓これがなくでも挙動に変化はない
+        header('Content-Length: '.filesize('test.csv'));
+        //     添付ファイルありますよー、ファイル名は***.csvですよー　←これがないとnumberというアプリじゃないアプリで  csvファイルが開かれた
+        header('Content-Disposition: attachment; filename=test.csv');
+        //　　これがないとtest.csvは作成されるけどファイルをmacから読み込むことができなかった
+        readfile('test.csv');
+    }
 }
