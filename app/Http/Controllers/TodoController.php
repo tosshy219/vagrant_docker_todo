@@ -24,7 +24,11 @@ class TodoController extends Controller
     // Requestは渡ってきたデータを使う．Todo $todoはTodoモデルをインスタンス化してる(DI)
     public function store(Request $request,Todo $todo)
     {
-        $todo->text=$request->input('text');
+        $validatedData = $request->validate([
+            'text' => 'required|max:50',
+        ]);
+
+        $todo->text=$validatedData;
         $todo->save();
         return redirect('/');
     }
@@ -42,8 +46,13 @@ class TodoController extends Controller
     //特定の一つを更新するため，idを引数に受け取っている
     public function update(Request $request,$id)
     {
+        //いったん放置
+        $validatedData = $request->validate([
+            'text' => 'required|max:50',
+        ]);
+
         $todo=Todo::find($id);
-        $todo->text=$request->input('text');
+        $todo->text=$validatedData;
         $todo->save();
         return redirect('/');
     }

@@ -7,6 +7,18 @@
 @endsection
 
 @section('content')
+
+@if (count($errors) > 0)
+<div class="alert-danger" style="padding-top: 17px;margin-top:20px;">
+  @foreach ($errors->all() as $error)
+    <p style="text-align:center;">{{ $error }}</p>
+  @endforeach
+</div>
+@endif
+
+
+
+
 {{-- aタグだとgetの通信になってしまうので，formをつかってPOSTにしてる --}}
   <form action="{{route('store')}}" method="POST">
     @csrf

@@ -8,15 +8,17 @@
 
 @section('content')
 
+
+
   @foreach ($todos as $todo)
 
     <a href="{{route('edit',['id'=>$todo->id])}}" class="card hoverable" style="margin-top: 10px;padding:5px 10px;color:black;">
       {{-- divの中で左右に配置 --}}
-      <div class="d-flex justify-content-between">
-        <span style="line-height: 40px;">{{$todo->text}}</span>
+      <div class="d-flex justify-content-between align-items-center">
+        <span style="width:70%;">{{$todo->text}}</span>
         <form method="POST" action="{{route('destroy',['id'=>$todo->id])}}">
           @csrf
-          <button class="btn btn-light btn-sm" type="submit">消去</button>
+          <button class="btn-sm btn" type="submit" >消去</button>
         </form>
       </div>
       {{---ここまで----}}
