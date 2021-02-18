@@ -25,7 +25,7 @@
   @include('nav')
   <div class="container" >
     <div class="row justify-content-center">
-      <div class="col-md-5" >
+      <div class="col-md-7" >
         <div class="card cloudy-knoxville-gradient " style="margin-top:20px;padding-top:10px;text-align:center;">
           @yield('content-title')
         </div>
