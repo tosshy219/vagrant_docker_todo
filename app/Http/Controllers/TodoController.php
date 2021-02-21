@@ -27,8 +27,13 @@ class TodoController extends Controller
         $validatedData = $request->validate([
             'text' => 'required|max:50',
         ]);
+        // この時の$validatedDataはこんな感じ
+        // array:1 [
+        // "text" => "a"
+        // ]
 
-        $todo->text=$validatedData;
+        // こういうふうに指定してあげないとエラーでた
+        $todo->text=$validatedData["text"];
         $todo->save();
         return redirect('/');
     }
@@ -52,7 +57,7 @@ class TodoController extends Controller
         ]);
 
         $todo=Todo::find($id);
-        $todo->text=$validatedData;
+        $todo->text=$validatedData["text"];
         $todo->save();
         return redirect('/');
     }
