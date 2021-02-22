@@ -32,8 +32,9 @@ class TodoController extends Controller
         // "text" => "a"
         // ]
 
-        // こういうふうに指定してあげないとエラーでた
+        // validatedDataはこういうふうに指定してあげないとエラーでた
         $todo->text=$validatedData["text"];
+        $todo->priority=$request->input('priority');
         $todo->save();
         return redirect('/');
     }
@@ -80,7 +81,7 @@ class TodoController extends Controller
         //fputcsv()はjsonの形式だと使えないため，変換
         $todos_not_json=json_decode($todos_json,true);
         // カラムの作成(のちに使うfputcsvは第二引数のところに”配列として”データを入れないといけないって)
-        $head = ['id','TODOリスト','作成日時','更新日時'];
+        $head = ['id','優先順位','TODOリスト','作成日時','更新日時'];
 
         // 書き込み用ファイルを開く
         $f = fopen('test.csv', 'w');

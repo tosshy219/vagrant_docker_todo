@@ -18,6 +18,17 @@
       margin: 15px 0 10px 0;
       font-size:15px;
     }
+    .priority-text{
+      writing-mode: vertical-rl;
+      position:absolute;
+      right:-25px;
+      top:13px;
+      font-size:14px;
+      font-weight: bold;
+    }
+    .priority-text{
+      pointer-events: none;
+    }
   </style>
 </head>
 

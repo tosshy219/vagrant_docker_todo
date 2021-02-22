@@ -20,6 +20,7 @@
           @csrf
           <button class="btn-sm btn" type="submit" >消去</button>
         </form>
+        @include('todo.priorityLetters')
       </div>
       {{---ここまで----}}
     </a>
