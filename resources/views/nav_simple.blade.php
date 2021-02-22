@@ -12,26 +12,8 @@
         <button class="btn heavy-rain-gradient rounded waves-effect" type="submit" style="color:rgb(49, 49, 49);padding:5px 10px;margin:0;">CSV出力</button>
       </form>
 
-      {{-- 優先順位オンオフ --}}
-      @if ($priority)
-        <form action="{{route('priority')}}" method="POST" style="margin: 0;">
-          @csrf
-          <button class="btn heavy-rain-gradient rounded waves-effect" type="submit" style="color:rgb(49, 49, 49);padding:5px 10px;margin:0;">
+      {{-- 優先順位ボタンはない --}}
 
-            @if ($priority->number==0)
-              優先度オン
-            @endif
-            @if ($priority->number==1)
-            優先度オフ
-            @endif
-            
-            
-            
-          </button>
-        </form>
-        @endif
-        
-      </div>
       
     </div>
     

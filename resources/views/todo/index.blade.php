@@ -6,8 +6,13 @@
 <h1>TODOリスト</h1>
 @endsection
 
-@section('content')
+@section('nav')
+  @include('nav')
+@endsection
 
+
+
+@section('content')
 
 
   @foreach ($todos as $todo)
@@ -20,7 +25,10 @@
           @csrf
           <button class="btn-sm btn" type="submit" >消去</button>
         </form>
+        
+        {{-- 優先順位読み込み --}}
         @include('todo.priorityLetters')
+
       </div>
       {{---ここまで----}}
     </a>

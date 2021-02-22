@@ -6,6 +6,12 @@
   <h1>TODO追加画面</h1>
 @endsection
 
+{{-- 簡易nav配置 --}}
+@section('nav')
+  @include('nav_simple')
+@endsection
+
+
 @section('content')
 
 @if (count($errors) > 0)

@@ -23,7 +23,7 @@
       position:absolute;
       right:-25px;
       top:13px;
-      font-size:14px;
+      font-size:12.5px;
       font-weight: bold;
     }
     .priority-text{
@@ -33,7 +33,7 @@
 </head>
 
 <body>
-  @include('nav')
+  @yield('nav')
   <div class="container" >
     <div class="row justify-content-center">
       <div class="col-md-7" >

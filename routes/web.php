@@ -24,3 +24,4 @@ Route::put('/update/{id}',[TodoController::class,'update'])->name('update');
 Route::post('/destroy/{id}',[TodoController::class,'destroy'])->name('destroy');
 
 Route::post('CSV',[TodoController::class,'postCSV'])->name('CSV');
+Route::post('priority',[TodoController::class,'priority'])->name('priority');

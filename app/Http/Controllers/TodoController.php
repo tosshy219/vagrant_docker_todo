@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //todoモデル追加
 use App\Models\Todo;
+//priority_on_offモデル追加
+use App\Models\PriorityOnOff;
 
 class TodoController extends Controller
 {
     public function index()
     {
         $todos=Todo::all();
+        $priority=PriorityOnOff::find(1);
+
         return view('todo.index',[
             'todos'=>$todos,
+            'priority'=>$priority,
         ]);
     }
 
@@ -107,5 +112,30 @@ class TodoController extends Controller
         header('Content-Disposition: attachment; filename=test.csv');
         //　　これがないとtest.csvは作成されるけどファイルをmacから読み込むことができなかった
         readfile('test.csv');
+    }
+
+    //優先順位の表示の機能
+    public function priority()
+    {
+        $priority=PriorityOnOff::find(1);
+        //1の時にviewで優先順位表示，0の時非表示とする
+
+        //if文の中をイコール一つにして時間を食った．0と1を切り替えている
+        if($priority->number==1){
+            $priority->number=0;
+        }elseif($priority->number==0){
+            $priority->number=1;
+        }
+        $priority->save();
+
+
+        $todos=Todo::all();
+
+        return view('todo.index',[
+            "todos"=>$todos,
+            "priority"=>$priority
+        ]);
+
+
     }
 }

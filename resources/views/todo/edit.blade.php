@@ -7,6 +7,12 @@
   <h1>TODO変更画面</h1>
 @endsection
 
+{{-- 簡易nav --}}
+@section('nav')
+  @include('nav_simple')
+@endsection
+
+
 
 
 @section('content')
