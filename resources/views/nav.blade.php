@@ -26,10 +26,10 @@
           <button class="btn heavy-rain-gradient rounded waves-effect" type="submit" style="color:rgb(49, 49, 49);padding:5px 10px;margin:0;">
 
             @if ($priority->number==0)
-              優先度オン
+              優先度オンにする
             @endif
             @if ($priority->number==1)
-            優先度オフ
+            優先度オフにする
             @endif
             
           </button>
@@ -39,10 +39,10 @@
           @csrf
           <button class="btn heavy-rain-gradient rounded waves-effect" type="submit" style="color:rgb(49, 49, 49);padding:5px 10px;margin:0;">
             @if($sort->number==0)
-            入力した順
+            入力した順にする
             @endif
             @if ($sort->number==1)
-            優先順位順
+            優先順位順にする
             @endif
             
           </button>
