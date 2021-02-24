@@ -25,3 +25,4 @@ Route::post('/destroy/{id}',[TodoController::class,'destroy'])->name('destroy');
 
 Route::post('CSV',[TodoController::class,'postCSV'])->name('CSV');
 Route::post('priority',[TodoController::class,'priority'])->name('priority');
+Route::post('sort',[TodoController::class,'sort'])->name('sort');

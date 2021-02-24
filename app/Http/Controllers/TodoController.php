@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Todo;
 //priority_on_offモデル追加
 use App\Models\PriorityOnOff;
+//sort_on_offモデル追加
+use App\Models\SortOnOff;
 
 class TodoController extends Controller
 {
@@ -14,10 +16,28 @@ class TodoController extends Controller
     {
         $todos=Todo::all();
         $priority=PriorityOnOff::find(1);
+        $sort=SortOnOff::find(1);
+
+
+        //ここからsortの処理
+        if($sort->number==0){
+        //とりあえずtodoをとってくる
+        $non_sorted_todos=Todo::all();
+        //優先順位がnullだとsortした時にnullが一番上にきてしまうので，nullの部分を4に書き換える
+        foreach($non_sorted_todos as $non_sorted_todo){
+            if($non_sorted_todo->priority==null){
+                $non_sorted_todo->priority=4;
+                $non_sorted_todo->save();
+            }
+        }
+        //優先順位により並び替える
+        $todos=$non_sorted_todos->sortBy('priority');
+        }
 
         return view('todo.index',[
             'todos'=>$todos,
             'priority'=>$priority,
+            'sort'=>$sort,
         ]);
     }
 
@@ -64,6 +84,8 @@ class TodoController extends Controller
 
         $todo=Todo::find($id);
         $todo->text=$validatedData["text"];
+        $todo->priority=$request->input('priority');
+
         $todo->save();
         return redirect('/');
     }
@@ -117,7 +139,11 @@ class TodoController extends Controller
     //優先順位の表示の機能
     public function priority()
     {
+        $todos=Todo::all();
+        $sort=SortOnOff::find(1);
         $priority=PriorityOnOff::find(1);
+        // priority_on_offsテーブルやりとり
+
         //1の時にviewで優先順位表示，0の時非表示とする
 
         //if文の中をイコール一つにして時間を食った．0と1を切り替えている
@@ -128,14 +154,62 @@ class TodoController extends Controller
         }
         $priority->save();
 
+        
+        // ここから「優先順位順にしていた場合，sortも行う」
+        if($sort->number==0){
+        //とりあえずtodoをとってくる
+        $non_sorted_todos=Todo::all();
+        //優先順位がnullだとsortした時にnullが一番上にきてしまうので，nullの部分を4に書き換える
+        foreach($non_sorted_todos as $non_sorted_todo){
+            if($non_sorted_todo->priority==null){
+                $non_sorted_todo->priority=4;
+                $non_sorted_todo->save();
+            }
+        }
+        //優先順位により並び替える
+        $todos=$non_sorted_todos->sortBy('priority');
 
-        $todos=Todo::all();
+        }
+
 
         return view('todo.index',[
             "todos"=>$todos,
-            "priority"=>$priority
+            "priority"=>$priority,
+            "sort"=>$sort,
         ]);
+    }
+    public function sort()
+    {
+        $non_sorted_todos=Todo::all();
+        $sort=SortOnOff::find(1);
+        $priority=PriorityOnOff::find(1);
 
 
+        //優先順位がnullだとsortした時にnullが一番上にきてしまうので，nullの部分を4に書き換える
+        foreach($non_sorted_todos as $non_sorted_todo){
+            if($non_sorted_todo->priority==null){
+                $non_sorted_todo->priority=4;
+                $non_sorted_todo->save();
+            }
+        }
+        //もし優先順位順にするボタンを押してたら並び替える
+
+        if($sort->number==1){
+            $sort->number=0;
+            $sort->save();
+            $todos=$non_sorted_todos->sortBy('priority');
+        }elseif($sort->number==0){
+            $sort->number=1;
+            $sort->save();
+            $todos=$non_sorted_todos;
+        }
+
+
+        
+        return view('todo.index',[
+            'todos'=>$todos,
+            'priority'=>$priority,
+            'sort'=>$sort,
+        ]);
     }
 }
