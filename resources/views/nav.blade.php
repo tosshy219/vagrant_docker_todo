@@ -6,14 +6,21 @@
     </a>
 
     <div class="col-md-4 row align-items-end justify-content-between mx-auto" style="position:absolute;bottom:0;right:0;">
+
+
       {{-- CSV出力 --}}
       <form action="{{route('CSV')}}" method="POST" style="margin: 0;">
         @csrf
         <button class="btn heavy-rain-gradient rounded waves-effect" type="submit" style="color:rgb(49, 49, 49);padding:5px 10px;margin:0;">CSV出力</button>
       </form>
 
+
+      
+
+      
+      @if(count($todos)>0)
+      
       {{-- 優先順位オンオフ --}}
-      @if ($priority)
         <form action="{{route('priority')}}" method="POST" style="margin: 0;">
           @csrf
           <button class="btn heavy-rain-gradient rounded waves-effect" type="submit" style="color:rgb(49, 49, 49);padding:5px 10px;margin:0;">
@@ -25,11 +32,22 @@
             優先度オフ
             @endif
             
-            
+          </button>
+        </form>
+        
+        <form action="{{route('sort')}}" method="POST" style="margin: 0;">
+          @csrf
+          <button class="btn heavy-rain-gradient rounded waves-effect" type="submit" style="color:rgb(49, 49, 49);padding:5px 10px;margin:0;">
+            @if($sort->number==0)
+            入力した順
+            @endif
+            @if ($sort->number==1)
+            優先順位順
+            @endif
             
           </button>
         </form>
-        @endif
+      @endif
         
       </div>
       
