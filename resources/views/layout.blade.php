@@ -33,14 +33,17 @@
 </head>
 
 <body>
+  {{-- ナビバー入れる --}}
   @yield('nav')
   <div class="container" >
     <div class="row justify-content-center">
       <div class="col-md-7" >
         <div class="card cloudy-knoxville-gradient " style="margin-top:20px;padding-top:10px;text-align:center;">
+          {{-- ページのタイトル --}}
           @yield('content-title')
         </div>
         <div class="card cloudy-knoxville-gradient" style="margin-top: 20px;padding:0 30px 10px 30px;">
+          {{-- ここに内容が入る --}}
           @yield('content')
         </div>
       </div>
@@ -55,6 +58,13 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+
+  {{-- js埋め込む時ここに入る --}}
+  @yield('js')
+
+
+
+
 </body>
 
 </html>
